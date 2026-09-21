@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111827"><link rel="manifest" href="manifest.webmanifest">
+<title>Governance Academy</title>
+<style>
+:root{--bg:#f7f7f5;--card:#fff;--ink:#17202a;--muted:#667085;--accent:#3b5bdb;--line:#e5e7eb;--ok:#16803a}
+*{box-sizing:border-box}body{margin:0;font:16px/1.5 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}
+header{background:#111827;color:white;padding:28px 20px 22px}.wrap{max-width:900px;margin:auto}h1{margin:0;font-size:clamp(28px,6vw,44px)}header p{margin:6px 0 0;color:#d1d5db}
+nav{display:flex;gap:8px;overflow:auto;padding:12px 16px;background:white;border-bottom:1px solid var(--line);position:sticky;top:0}
+nav button{border:0;background:transparent;padding:10px 12px;border-radius:10px;font-weight:650;white-space:nowrap}nav button.active{background:#eef2ff;color:#3046b5}
+main{padding:18px}.grid{display:grid;gap:14px}.cards{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);font-weight:750}
+h2,h3{line-height:1.2}h2{margin:6px 0 12px}.progress{height:10px;background:#e9ecef;border-radius:20px;overflow:hidden}.progress>span{display:block;height:100%;background:var(--accent)}
+.btn{display:inline-block;border:0;border-radius:11px;padding:12px 15px;background:var(--accent);color:#fff;text-decoration:none;font-weight:700;cursor:pointer}.btn.secondary{background:#eef2ff;color:#3046b5}.btn.done{background:var(--ok)}
+.lesson{display:flex;gap:12px;align-items:flex-start}.lesson input{margin-top:5px;width:20px;height:20px}.lesson label{flex:1}.small{color:var(--muted);font-size:14px}.hidden{display:none}.week{margin-bottom:16px}.week h3{margin-bottom:8px}.tool{border-left:4px solid #9ca3af}.score input,.notes textarea{width:100%;font:inherit;padding:10px;border:1px solid var(--line);border-radius:10px}.notes textarea{min-height:140px}
+footer{padding:30px 18px;color:var(--muted);text-align:center;font-size:13px}
+@media(max-width:480px){header{padding-top:22px}.card{padding:15px}main{padding:12px}nav{padding:8px}}
+</style></head>
+<body><header><div class="wrap"><div class="eyebrow" style="color:#9ca3af">Leigh's learning workspace</div><h1>Governance Academy</h1><p>AIGP · Course 01 · Learn it. Apply it. Build the toolkit.</p></div></header>
+<nav id="nav" class="wrap"><button data-view="today" class="active">Today</button><button data-view="learn">Learn</button><button data-view="practice">Practice</button><button data-view="lab">Consulting Lab</button><button data-view="progress">Progress</button></nav>
+<main class="wrap">
+<section id="today"><div class="grid cards">
+<div class="card"><div class="eyebrow">Your next lesson</div><h2>Day 1 · What AI actually is</h2><p>Build the vocabulary needed to reason about AI governance without trying to become an ML engineer.</p><button class="btn" data-jump="learn">Start lesson</button></div>
+<div class="card"><div class="eyebrow">Course progress</div><h2 id="pct">0%</h2><div class="progress"><span id="bar" style="width:0"></span></div><p class="small"><span id="doneCount">0</span> of 25 core lessons complete</p></div>
+<div class="card"><div class="eyebrow">Practice engine</div><h2>296 scenarios</h2><p>Use the open-source AI Governance Practice bank after each lesson.</p><a class="btn secondary" target="_blank" rel="noopener" href="https://thankcheeses.github.io/ai-governance-practice/">Open practice</a></div>
+</div>
+<div class="card" style="margin-top:14px"><div class="eyebrow">This week's outcome</div><h2>Foundations → governance</h2><p>By the weekend you should be able to explain the AI lifecycle, identify major categories of harm, distinguish principles from controls, and sketch an accountable governance structure.</p></div>
+</section>
+
+<section id="learn" class="hidden">
+<div class="card week"><div class="eyebrow">Week 1 · Foundations</div><h2>Understand before governing</h2><div id="w1"></div></div>
+<div class="card week"><div class="eyebrow">Week 2 · Law & frameworks</div><h2>Translate obligations into action</h2><div id="w2"></div></div>
+<div class="card week"><div class="eyebrow">Week 3 · Governing development</div><h2>Controls before deployment</h2><div id="w3"></div></div>
+<div class="card week"><div class="eyebrow">Week 4 · Deployment & operations</div><h2>Govern AI in the real world</h2><div id="w4"></div></div>
+<div class="card week"><div class="eyebrow">Week 5 · Integration & exam</div><h2>Put the system together</h2><div id="w5"></div></div>
+</section>
+
+<section id="practice" class="hidden"><div class="grid cards">
+<div class="card"><div class="eyebrow">Open-source practice</div><h2>Facts → Obligations → Risks → Action</h2><p>Do scenarios after learning, not before. For every miss, record why the tempting answer was wrong.</p><a class="btn" target="_blank" rel="noopener" href="https://thankcheeses.github.io/ai-governance-practice/">Launch question bank</a></div>
+<div class="card score"><div class="eyebrow">Latest score</div><h2>Record a practice set</h2><label>Correct out of questions<input id="score" inputmode="numeric" placeholder="e.g. 21/25"></label><p class="small" id="scoreSaved"></p></div>
+</div><div class="card notes" style="margin-top:14px"><div class="eyebrow">Error log</div><h2>What fooled me?</h2><textarea id="errors" placeholder="Question/topic → why my answer was tempting → rule or reasoning I missed"></textarea></div></section>
+
+<section id="lab" class="hidden"><div class="card"><div class="eyebrow">Consulting toolkit</div><h2>Build IP while you study</h2><p>Each deliverable converts exam knowledge into something you could use in a 3–6 month client engagement.</p><div id="tools"></div></div></section>
+
+<section id="progress" class="hidden"><div class="grid cards">
+<div class="card"><div class="eyebrow">Lessons</div><h2 id="progressPct">0%</h2><div class="progress"><span id="progressBar" style="width:0"></span></div></div>
+<div class="card"><div class="eyebrow">Target</div><h2>35–40 hours</h2><p class="small">Five weeks · active study + scenarios + consulting exercises</p></div>
+</div><div class="card notes" style="margin-top:14px"><div class="eyebrow">Study notes</div><h2>Working notebook</h2><textarea id="notes" placeholder="Definitions, frameworks, questions, consulting ideas…"></textarea></div></section>
+</main><footer>Governance Academy · progress is stored on this device in v1</footer>
+<script>
+const lessons=[
+["AI vs ML vs deep learning vs GenAI","Training, inference, foundation models and probabilistic output"],
+["AI harms & risk","Individual, group, organizational and societal harms"],
+["Responsible AI principles","Fairness, transparency, accountability, privacy, safety and oversight"],
+["Governance structure","Board, Legal, Privacy, Security, Product, Engineering, Risk and Ops"],
+["Principles → controls","Turn statements of intent into testable, evidenced controls"],
+["EU AI Act I","Scope, actors and the risk-based structure"],
+["EU AI Act II","Obligations, prohibited practices and high-risk systems"],
+["Privacy & data protection","Purpose, lawful processing, minimization and AI-specific tensions"],
+["NIST AI RMF","Govern, Map, Measure and Manage"],
+["ISO 42001 + OECD","Management systems, principles and how frameworks relate"],
+["AI risk & impact assessments","Identify context, harms, likelihood, severity and mitigations"],
+["Data governance","Provenance, quality, representativeness, rights and documentation"],
+["Testing & evaluation","Performance, robustness, fairness, red teaming and acceptance criteria"],
+["Explainability & transparency","Different audiences need different explanations"],
+["Development documentation","Model/system cards, decisions, evidence and traceability"],
+["Human oversight","Meaningful review, intervention, escalation and automation boundaries"],
+["Deployment gates","What must be true before an AI system goes live"],
+["Monitoring & drift","Signals, thresholds, model/system change and reassessment"],
+["Incident response","Detection, triage, containment, remediation and learning"],
+["Third-party AI","Vendor due diligence, contracts, monitoring and shared responsibility"],
+["AI inventory & classification","Know what exists before trying to govern it"],
+["Governance operating model","Intake, tiering, review, approvals, exceptions and evidence"],
+["Scenario integration","Apply law + frameworks + lifecycle controls together"],
+["Weak-area remediation","Use practice results to target gaps"],
+["Mock & consulting capstone","Timed set + 16-week governance implementation outline"]
+];
+const toolkit=["AI governance charter + RACI","AI system inventory","Risk-tiering model","AI impact assessment","Vendor assessment questionnaire","Human oversight standard","Deployment gate checklist","AI incident playbook","Monitoring plan + governance dashboard","16-week implementation roadmap"];
+const S=JSON.parse(localStorage.getItem("ga-state")||"{}");S.done=S.done||{};S.tools=S.tools||{};S.notes=S.notes||"";S.errors=S.errors||"";S.score=S.score||"";
+function save(){localStorage.setItem("ga-state",JSON.stringify(S));update()}
+function renderLessons(){for(let w=1;w<=5;w++){const box=document.querySelector("#w"+w);lessons.slice((w-1)*5,w*5).forEach((l,j)=>{const i=(w-1)*5+j;const d=document.createElement("div");d.className="lesson";d.innerHTML='<input type="checkbox" id="l'+i+'" '+(S.done[i]?"checked":"")+'><label for="l'+i+'"><strong>Day '+(i+1)+' · '+l[0]+'</strong><div class="small">'+l[1]+'</div></label>';box.appendChild(d);d.querySelector("input").addEventListener("change",e=>{S.done[i]=e.target.checked;save()})})}}
+function renderTools(){const box=document.querySelector("#tools");toolkit.forEach((t,i)=>{const d=document.createElement("div");d.className="lesson tool";d.style.padding="10px 12px";d.innerHTML='<input type="checkbox" id="t'+i+'" '+(S.tools[i]?"checked":"")+'><label for="t'+i+'"><strong>'+t+'</strong></label>';box.appendChild(d);d.querySelector("input").addEventListener("change",e=>{S.tools[i]=e.target.checked;save()})})}
+function update(){const n=Object.values(S.done).filter(Boolean).length,p=Math.round(n/25*100);document.querySelector("#pct").textContent=p+"%";document.querySelector("#doneCount").textContent=n;document.querySelector("#bar").style.width=p+"%";document.querySelector("#progressPct").textContent=p+"%";document.querySelector("#progressBar").style.width=p+"%"}
+function show(id){document.querySelectorAll("main>section").forEach(x=>x.classList.toggle("hidden",x.id!==id));document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("active",x.dataset.view===id));scrollTo({top:0,behavior:"smooth"})}
+renderLessons();renderTools();update();
+document.querySelectorAll("nav button").forEach(b=>b.addEventListener("click",()=>show(b.dataset.view)));document.querySelectorAll("[data-jump]").forEach(b=>b.addEventListener("click",()=>show(b.dataset.jump)));
+const notes=document.querySelector("#notes"),errors=document.querySelector("#errors"),score=document.querySelector("#score");notes.value=S.notes;errors.value=S.errors;score.value=S.score;
+notes.addEventListener("input",()=>{S.notes=notes.value;save()});errors.addEventListener("input",()=>{S.errors=errors.value;save()});score.addEventListener("change",()=>{S.score=score.value.trim();save();document.querySelector("#scoreSaved").textContent="Saved on this device."});
+</script></body></html>
